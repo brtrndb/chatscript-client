@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<!-- Pom informations. -->
+	<groupId>com.brtrndb</groupId>
+	<artifactId>chatscript-client</artifactId>
+	<version>0.0.1</version>
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Project informations. -->
+	<name>ChatScript Java Client</name>
+	<url></url>
+	<description>Java client for ChatScript chatbot</description>
+
+	<!-- Organisation. -->
+	<organization>
+		<name>brtrndb</name>
+	</organization>
+
+	<!-- Developpers. -->
+	<developers>
+		<developer>
+			<name>Bertrand Boyer</name>
+			<email></email>
+			<timezone>Europe/London</timezone>
+			<organization>brtrndb</organization>
+			<organizationUrl>http://www.github.com/brtrndb</organizationUrl>
+		</developer>
+	</developers>
+
+	<!-- Licence. -->
+	<licenses>
+		<license>
+			<name></name>
+			<url></url>
+			<distribution></distribution>
+		</license>
+	</licenses>
+
+	<!-- Source manager. -->
+	<scm>
+		<connection></connection>
+		<developerConnection></developerConnection>
+		<url></url>
+		<tag></tag>
+	</scm>
+
+	<!-- Source manager. -->
+	<issueManagement>
+		<system></system>
+		<url></url>
+	</issueManagement>
+
+	<!-- Continuous integration. -->
+	<ciManagement>
+		<system></system>
+		<url></url>
+	</ciManagement>
+
+	<!-- Properties. -->
+	<properties>
+		<!-- General properties. -->
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- Other properties. -->
+		<version.dropwizard>1.2.0</version.dropwizard>
+		<version.slf4j>1.7.25</version.slf4j>
+		<version.log4j>2.8.2</version.log4j>
+		<version.testng>6.10</version.testng>
+		<version.assertj>3.6.2</version.assertj>
+	</properties>
+
+	<!-- Build configuration. -->
+	<build>
+		<!-- Plugin management -->
+		<pluginManagement>
+			<plugins>
+				<!-- Maven compiler plugin. -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.5.1</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+					</configuration>
+				</plugin>
+				<!-- Maven surefire plugin (unit tests). -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.20</version>
+					<configuration>
+						<includes>
+							<include>**/*.java</include>
+						</includes>
+					</configuration>
+				</plugin>
+				<!-- JAR plugin. -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>test-jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<!-- Build plugins. -->
+		<plugins>
+		</plugins>
+	</build>
+
+	<!-- Dependency management. -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- General dependencies. -->
+			<!-- SLF4J dependencies. -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${version.slf4j}</version>
+			</dependency>
+			<!-- Log4j. -->
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>${version.log4j}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j-impl</artifactId>
+				<version>${version.log4j}</version>
+			</dependency>
+			<!-- Tests dependencies. -->
+			<!-- TestNG. -->
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>${version.testng}</version>
+			</dependency>
+			<!-- AssertJ. -->
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>${version.assertj}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- Dependencies. -->
+	<dependencies>
+		<!-- General dependencies. -->
+		<!-- SLF4J dependencies. -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<!-- Log4j. -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<!-- Tests dependencies. -->
+	</dependencies>
+
+</project>
