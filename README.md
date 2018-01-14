@@ -21,3 +21,5 @@ List of parameters:
 - port: ChatScript server port (required, ChatScript default port 1024).
 - username: Client username (optional, default MacClane).
 - botname: Server botname (optional, default harry).
+
+Note: A ChatScript server must be running in order to test the client.
