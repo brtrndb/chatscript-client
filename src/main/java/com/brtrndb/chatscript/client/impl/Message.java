@@ -67,4 +67,19 @@ public class Message implements CSMessage
 		baos.write(bytes, 0, bytes.length);
 		baos.write(0);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("Message [")
+				.append("username=").append(username).append(", ")
+				.append("botname=").append(botname).append(", ")
+				.append("body=").append(body).append(']');
+		return (builder.toString());
+	}
 }
