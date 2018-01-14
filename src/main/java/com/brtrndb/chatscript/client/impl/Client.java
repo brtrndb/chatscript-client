@@ -99,6 +99,7 @@ public class Client implements CSClient
 		{
 			log.info("Starting ChatScript client.");
 			log.info("Client configuration: server={}:{} | username={} | botname={}", this.url, this.port, this.username, this.botname);
+			System.out.println("Welcome to the ChatScript Java client. Type ':quit' to exit the chat.");
 			initializeNewConversation();
 			chatLoop();
 		}
