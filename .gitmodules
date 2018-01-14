@@ -1,0 +1,3 @@
+[submodule "ChatScript"]
+	path = ChatScript
+	url = https://github.com/bwilcox-1234/ChatScript.git
