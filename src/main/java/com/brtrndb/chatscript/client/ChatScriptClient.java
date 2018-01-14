@@ -14,8 +14,15 @@ import com.brtrndb.chatscript.client.impl.Client;
  */
 public class ChatScriptClient
 {
+	/** Logger for {@link ChatScriptClient}. */
 	private static final Logger log = LoggerFactory.getLogger(ChatScriptClient.class);
 
+	/**
+	 * Main.
+	 * 
+	 * @param args
+	 *            Program arguments.
+	 */
 	public static void main(String[] args)
 	{
 		try
@@ -30,6 +37,12 @@ public class ChatScriptClient
 		}
 	}
 
+	/**
+	 * Verify correct number of parameters.
+	 * 
+	 * @param args
+	 *            Program arguments.
+	 */
 	private static void verifyParams(String[] args)
 	{
 		if (args.length < 2)
@@ -39,6 +52,15 @@ public class ChatScriptClient
 		}
 	}
 
+	/**
+	 * Build client from parameters.
+	 * 
+	 * @param url
+	 *            ChatScript server url.
+	 * @param portStr
+	 *            ChatScript server port.
+	 * @return The ChatScript client.
+	 */
 	private static Client createClient(String[] args)
 	{
 		String url = args[0];
