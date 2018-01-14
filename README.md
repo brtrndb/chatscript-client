@@ -16,7 +16,7 @@ The project is mavenised, so build it with `mvn clean package`.
 
 `java -jar chatscript-client-0.0.1.jar <url> <port> <username> <botname>`
 
-List o
+List of parameters:
 - url: ChatScript server address (required).
 - port: ChatScript server port (required).
 - username: Client username (optional, default MacClane).
