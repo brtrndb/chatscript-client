@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.brtrndb.chatscript.client.impl;
 
@@ -16,8 +16,8 @@ public class MessageTests
 	@Test
 	public void formatToCSTest()
 	{
-		Message msg = new Message("User", "Bot", "Msg");
-		byte[] expected = { 'U', 's', 'e', 'r', 0, 'B', 'o', 't', 0, 'M', 's', 'g', 0 };
+		final Message msg = new Message("User", "Bot", "Msg");
+		final byte[] expected = { 'U', 's', 'e', 'r', 0, 'B', 'o', 't', 0, 'M', 's', 'g', 0 };
 		assertThat(msg.toCSFormat()).containsExactly(expected);
 	}
 }

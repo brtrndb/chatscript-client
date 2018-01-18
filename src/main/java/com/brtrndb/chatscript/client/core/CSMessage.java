@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.brtrndb.chatscript.client.core;
 
@@ -11,7 +11,7 @@ public interface CSMessage
 {
 	/**
 	 * Transform a message into the ChatScript message format.
-	 * 
+	 *
 	 * @return
 	 */
 	public byte[] toCSFormat();

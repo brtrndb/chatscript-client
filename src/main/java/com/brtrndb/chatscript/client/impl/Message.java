@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.brtrndb.chatscript.client.impl;
 
@@ -10,7 +10,7 @@ import com.brtrndb.chatscript.client.core.CSMessage;
 
 /**
  * ChatScript message and metadata.
- * 
+ *
  * @author bertrand
  *
  */
@@ -23,7 +23,7 @@ public class Message implements CSMessage
 	/** Message body. */
 	private final String	body;
 
-	public Message(String username, String botname, String body)
+	public Message(final String username, final String botname, final String body)
 	{
 		this.username = username;
 		this.botname = botname;
@@ -32,17 +32,17 @@ public class Message implements CSMessage
 
 	public String getUsername()
 	{
-		return username;
+		return this.username;
 	}
 
 	public String getBotname()
 	{
-		return botname;
+		return this.botname;
 	}
 
 	public String getBody()
 	{
-		return body;
+		return this.body;
 	}
 
 	/*
@@ -52,18 +52,18 @@ public class Message implements CSMessage
 	@Override
 	public byte[] toCSFormat()
 	{
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-		this.writeStringAsBytes(baos, username);
-		this.writeStringAsBytes(baos, botname);
-		this.writeStringAsBytes(baos, body);
+		this.writeStringAsBytes(baos, this.username);
+		this.writeStringAsBytes(baos, this.botname);
+		this.writeStringAsBytes(baos, this.body);
 
 		return baos.toByteArray();
 	}
 
-	private void writeStringAsBytes(ByteArrayOutputStream baos, String str)
+	private void writeStringAsBytes(final ByteArrayOutputStream baos, final String str)
 	{
-		byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+		final byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
 		baos.write(bytes, 0, bytes.length);
 		baos.write(0);
 	}
@@ -75,11 +75,11 @@ public class Message implements CSMessage
 	@Override
 	public String toString()
 	{
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 		builder.append("Message [")
-				.append("username=").append(username).append(", ")
-				.append("botname=").append(botname).append(", ")
-				.append("body=").append(body).append(']');
+				.append("username=").append(this.username).append(", ")
+				.append("botname=").append(this.botname).append(", ")
+				.append("body=").append(this.body).append(']');
 		return (builder.toString());
 	}
 }

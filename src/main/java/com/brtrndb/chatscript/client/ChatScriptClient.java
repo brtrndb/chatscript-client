@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.brtrndb.chatscript.client;
 
@@ -19,19 +19,19 @@ public class ChatScriptClient
 
 	/**
 	 * Main.
-	 * 
+	 *
 	 * @param args
 	 *            Program arguments.
 	 */
-	public static void main(String[] args)
+	public static void main(final String[] args)
 	{
 		try
 		{
 			verifyParams(args);
-			Client client = createClient(args);
+			final Client client = createClient(args);
 			client.start();
 		}
-		catch (Exception e)
+		catch (final Exception e)
 		{
 			log.error("Oups... Something went wrong: ", e.getLocalizedMessage());
 		}
@@ -39,11 +39,11 @@ public class ChatScriptClient
 
 	/**
 	 * Verify correct number of parameters.
-	 * 
+	 *
 	 * @param args
 	 *            Program arguments.
 	 */
-	private static void verifyParams(String[] args)
+	private static void verifyParams(final String[] args)
 	{
 		if (args.length < 2)
 		{
@@ -54,21 +54,21 @@ public class ChatScriptClient
 
 	/**
 	 * Build client from parameters.
-	 * 
+	 *
 	 * @param url
 	 *            ChatScript server url.
 	 * @param portStr
 	 *            ChatScript server port.
 	 * @return The ChatScript client.
 	 */
-	private static Client createClient(String[] args)
+	private static Client createClient(final String[] args)
 	{
-		String url = args[0];
-		int port = Integer.parseInt(args[1]);
-		String username = args.length == 3 ? args[2] : "MacClane";
-		String botname = args.length == 4 ? args[3] : "harry";
+		final String url = args[0];
+		final int port = Integer.parseInt(args[1]);
+		final String username = args.length == 3 ? args[2] : "MacClane";
+		final String botname = args.length == 4 ? args[3] : "harry";
 
-		Client client = new Client(url, port, username, botname);
+		final Client client = new Client(url, port, username, botname);
 		return (client);
 	}
 }

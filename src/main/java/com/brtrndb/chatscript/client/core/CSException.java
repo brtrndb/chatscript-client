@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package com.brtrndb.chatscript.client.core;
 
 /**
  * ChatScript exception.
- * 
+ *
  * @author bertrand
  *
  */
@@ -25,20 +25,20 @@ public class CSException extends Exception
 	}
 
 	/**
-	 * 
+	 *
 	 * @param message
 	 */
-	public CSException(String message)
+	public CSException(final String message)
 	{
 		super(message);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param message
 	 * @param cause
 	 */
-	public CSException(String message, Throwable cause)
+	public CSException(final String message, final Throwable cause)
 	{
 		super(message, cause);
 	}

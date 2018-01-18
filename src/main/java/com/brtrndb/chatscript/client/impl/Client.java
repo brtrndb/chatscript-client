@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.brtrndb.chatscript.client.impl;
 
@@ -28,17 +28,17 @@ public class Client implements CSClient
 	private static final int	RESPONSE_BUFFER	= 1024;
 
 	/** ChatScript server url. */
-	private String				url;
+	private final String		url;
 	/** ChatScript server port. */
-	private int					port;
+	private final int			port;
 	/** ChatScript client username. */
-	private String				username;
+	private final String		username;
 	/** Botname on the ChatScript server. */
-	private String				botname;
+	private final String		botname;
 
 	/**
 	 * ChatScript client constructor.
-	 * 
+	 *
 	 * @param url
 	 *            Server url.
 	 * @param port
@@ -48,7 +48,7 @@ public class Client implements CSClient
 	 * @param botname
 	 *            Botname on the server.
 	 */
-	public Client(String url, int port, String username, String botname)
+	public Client(final String url, final int port, final String username, final String botname)
 	{
 		this.url = url;
 		this.port = port;
@@ -61,10 +61,10 @@ public class Client implements CSClient
 	 * @see com.brtrndb.chatscript.client.CSClient#sendMessage(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void sendMessage(Socket socket, String username, String botname, String message) throws IOException
+	public void sendMessage(final Socket socket, final String username, final String botname, final String message) throws IOException
 	{
-		Message msg = new Message(username, botname, message);
-		byte[] bytes = msg.toCSFormat();
+		final Message msg = new Message(username, botname, message);
+		final byte[] bytes = msg.toCSFormat();
 		socket.getOutputStream().write(bytes);
 		log.debug("Message sent: {} => [{}].", msg, bytes);
 	}
@@ -74,12 +74,12 @@ public class Client implements CSClient
 	 * @see com.brtrndb.chatscript.client.CSClient#receiveMessage()
 	 */
 	@Override
-	public String receiveMessage(Socket socket) throws IOException
+	public String receiveMessage(final Socket socket) throws IOException
 	{
 		int length;
-		byte[] buffer = new byte[RESPONSE_BUFFER];
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		InputStream is = socket.getInputStream();
+		final byte[] buffer = new byte[RESPONSE_BUFFER];
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		final InputStream is = socket.getInputStream();
 		String response;
 
 		while ((length = is.read(buffer)) != -1)
@@ -100,19 +100,19 @@ public class Client implements CSClient
 			log.info("Starting ChatScript client.");
 			log.info("Client configuration: server={}:{} | username={} | botname={}", this.url, this.port, this.username, this.botname);
 			System.out.println("Welcome to the ChatScript Java client. Type ':quit' to exit the chat.");
-			initializeNewConversation();
-			chatLoop();
+			this.initializeNewConversation();
+			this.chatLoop();
 		}
-		catch (CSException e)
+		catch (final CSException e)
 		{
 			e.printStackTrace();
 		}
-		quit();
+		this.quit();
 	}
 
 	/**
 	 * A new conversation start with an empty message.
-	 * 
+	 *
 	 * @throws CSException
 	 * @see: https://github.com/bwilcox-1234/ChatScript/blob/7aec5242cd74c033ede4e7801ecce7f848bc4e6e/WIKI/CLIENTS-AND-SERVERS/ChatScript-ClientServer-Manual.md#chatscript-protocol
 	 */
@@ -121,9 +121,9 @@ public class Client implements CSClient
 		try (Socket socket = new Socket(this.url, this.port))
 		{
 			log.debug("Starting new conversation.");
-			sendMessage(socket, username, botname, "");
+			this.sendMessage(socket, this.username, this.botname, "");
 		}
-		catch (IOException e)
+		catch (final IOException e)
 		{
 			throw (new CSException("Cannot connect to ChatScript server", e));
 		}
@@ -134,7 +134,7 @@ public class Client implements CSClient
 	 * - Read standard input.
 	 * - Send the message.
 	 * - Receive the response.
-	 * 
+	 *
 	 * @throws CSException
 	 */
 	private void chatLoop() throws CSException
@@ -148,28 +148,26 @@ public class Client implements CSClient
 		try (InputStreamReader isr = new InputStreamReader(System.in); BufferedReader br = new BufferedReader(isr))
 		{
 			while (continueChatting)
-			{
 				try
 				{
-					userPrompt();
+					this.userPrompt();
 					message = br.readLine();
 					if (CMD_QUIT.equals(message))
 						continueChatting = false;
 					else if (!message.isEmpty()) // As empty message means new conversation, empty message are ignored.
 					{
-						response = sendAndReceive(message);
-						botPrompt(response);
+						response = this.sendAndReceive(message);
+						this.botPrompt(response);
 					}
 				}
-				catch (CSException e)
+				catch (final CSException e)
 				{
 					log.error("ChatScript error.", e);
 					response = e.getLocalizedMessage();
-					botPrompt(response);
+					this.botPrompt(response);
 				}
-			}
 		}
-		catch (IOException e)
+		catch (final IOException e)
 		{
 			throw (new CSException("Cannot read standart input", e));
 		}
@@ -181,27 +179,27 @@ public class Client implements CSClient
 	private void userPrompt()
 	{
 		log.debug("Waiting for user input.");
-		System.out.print(username + " : ");
+		System.out.print(this.username + " : ");
 	}
 
 	/**
 	 * Send a message and receive the response.
-	 * 
+	 *
 	 * @param message
 	 *            The message to send.
 	 * @return The response.
 	 * @throws CSException
 	 */
-	private String sendAndReceive(String message) throws CSException
+	private String sendAndReceive(final String message) throws CSException
 	{
 		String response;
 
 		try (Socket socket = new Socket(this.url, this.port))
 		{
-			sendMessage(socket, username, botname, message);
-			response = receiveMessage(socket);
+			this.sendMessage(socket, this.username, this.botname, message);
+			response = this.receiveMessage(socket);
 		}
-		catch (IOException e)
+		catch (final IOException e)
 		{
 			throw (new CSException("Cannot connect to ChatScript server", e));
 		}
@@ -211,13 +209,13 @@ public class Client implements CSClient
 
 	/**
 	 * Display bot prompt with its response.
-	 * 
+	 *
 	 * @param response
 	 *            The bot response.
 	 */
-	private void botPrompt(String response)
+	private void botPrompt(final String response)
 	{
-		System.out.println(botname + " : " + response);
+		System.out.println(this.botname + " : " + response);
 	}
 
 	/**

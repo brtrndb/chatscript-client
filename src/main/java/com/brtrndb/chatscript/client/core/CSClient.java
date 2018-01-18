@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.brtrndb.chatscript.client.core;
 
@@ -14,7 +14,7 @@ public interface CSClient
 {
 	/**
 	 * Send a message to the ChatScript server.
-	 * 
+	 *
 	 * @param socket
 	 *            The socket to write on.
 	 * @param username
@@ -29,7 +29,7 @@ public interface CSClient
 
 	/**
 	 * Receive the ChatScript response message.
-	 * 
+	 *
 	 * @param socket
 	 *            The socket to listen for the response.
 	 * @return The response.
