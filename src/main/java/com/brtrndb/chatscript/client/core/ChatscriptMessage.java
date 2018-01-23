@@ -1,6 +1,6 @@
 package com.brtrndb.chatscript.client.core;
 
-public interface CSMessage
+public interface ChatscriptMessage
 {
 	public byte[] toCSFormat();
 }

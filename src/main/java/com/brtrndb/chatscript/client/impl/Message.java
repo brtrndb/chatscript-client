@@ -3,9 +3,9 @@ package com.brtrndb.chatscript.client.impl;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 
-import com.brtrndb.chatscript.client.core.CSMessage;
+import com.brtrndb.chatscript.client.core.ChatscriptMessage;
 
-public class Message implements CSMessage
+public class Message implements ChatscriptMessage
 {
 	private final String	username;
 	private final String	botname;

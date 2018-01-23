@@ -11,10 +11,10 @@ import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.brtrndb.chatscript.client.core.CSClient;
-import com.brtrndb.chatscript.client.core.CSException;
+import com.brtrndb.chatscript.client.core.MessageService;
+import com.brtrndb.chatscript.client.core.ChatscriptException;
 
-public class Client implements CSClient
+public class Client implements MessageService
 {
 	private static final Logger	log				= LoggerFactory.getLogger(Client.class);
 	private static final String	CMD_QUIT		= ":quit";
@@ -69,14 +69,14 @@ public class Client implements CSClient
 			this.initializeNewConversation();
 			this.chatLoop();
 		}
-		catch (final CSException e)
+		catch (final ChatscriptException e)
 		{
 			e.printStackTrace();
 		}
 		this.quit();
 	}
 
-	private void initializeNewConversation() throws CSException
+	private void initializeNewConversation() throws ChatscriptException
 	{
 		try (Socket socket = new Socket(this.url, this.port))
 		{
@@ -85,11 +85,11 @@ public class Client implements CSClient
 		}
 		catch (final IOException e)
 		{
-			throw (new CSException("Cannot connect to ChatScript server", e));
+			throw (new ChatscriptException("Cannot connect to ChatScript server", e));
 		}
 	}
 
-	private void chatLoop() throws CSException
+	private void chatLoop() throws ChatscriptException
 	{
 		boolean continueChatting = true;
 		String message = "";
@@ -112,7 +112,7 @@ public class Client implements CSClient
 						this.botPrompt(response);
 					}
 				}
-				catch (final CSException e)
+				catch (final ChatscriptException e)
 				{
 					log.error("ChatScript error.", e);
 					response = e.getLocalizedMessage();
@@ -121,7 +121,7 @@ public class Client implements CSClient
 		}
 		catch (final IOException e)
 		{
-			throw (new CSException("Cannot read standart input", e));
+			throw (new ChatscriptException("Cannot read standart input", e));
 		}
 	}
 
@@ -131,7 +131,7 @@ public class Client implements CSClient
 		System.out.print(this.username + " : ");
 	}
 
-	private String sendAndReceive(final String message) throws CSException
+	private String sendAndReceive(final String message) throws ChatscriptException
 	{
 		String response;
 
@@ -142,7 +142,7 @@ public class Client implements CSClient
 		}
 		catch (final IOException e)
 		{
-			throw (new CSException("Cannot connect to ChatScript server", e));
+			throw (new ChatscriptException("Cannot connect to ChatScript server", e));
 		}
 
 		return (response);
