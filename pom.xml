@@ -72,6 +72,7 @@
 		<version.log4j>2.8.2</version.log4j>
 		<version.testng>6.10</version.testng>
 		<version.assertj>3.6.2</version.assertj>
+		<version.lombok>1.16.20</version.lombok>
 	</properties>
 
 	<!-- Build configuration. -->
@@ -145,36 +146,7 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- General dependencies. -->
-			<!-- SLF4J dependencies. -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${version.slf4j}</version>
-			</dependency>
-			<!-- Log4j. -->
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>${version.log4j}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-slf4j-impl</artifactId>
-				<version>${version.log4j}</version>
-			</dependency>
 			<!-- Tests dependencies. -->
-			<!-- TestNG. -->
-			<dependency>
-				<groupId>org.testng</groupId>
-				<artifactId>testng</artifactId>
-				<version>${version.testng}</version>
-			</dependency>
-			<!-- AssertJ. -->
-			<dependency>
-				<groupId>org.assertj</groupId>
-				<artifactId>assertj-core</artifactId>
-				<version>${version.assertj}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -185,26 +157,37 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+				<version>${version.slf4j}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${version.log4j}</version>
 		</dependency>
 		<!-- Log4j. -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
+			<version>${version.log4j}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${version.lombok}</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- Tests dependencies. -->
 		<!-- TestNG. -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
+			<version>${version.testng}</version>
 		</dependency>
 		<!-- AssertJ. -->
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
+			<version>${version.assertj}</version>
 		</dependency>
 	</dependencies>
 
