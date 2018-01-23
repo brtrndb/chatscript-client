@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public interface MessageService
 {
-	public void sendMessage(Socket socket, String username, String botname, String message) throws IOException;
+	public void sendMessage(Socket socket, ChatscriptMessage message) throws IOException;
 
 	public String receiveMessage(Socket socket) throws IOException;
 }

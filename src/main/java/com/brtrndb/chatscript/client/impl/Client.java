@@ -1,29 +1,26 @@
 package com.brtrndb.chatscript.client.impl;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.brtrndb.chatscript.client.core.MessageService;
 import com.brtrndb.chatscript.client.core.ChatscriptException;
+import com.brtrndb.chatscript.client.core.ChatscriptMessage;
+import com.brtrndb.chatscript.client.core.MessageService;
 
-public class Client implements MessageService
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class Client
 {
-	private static final Logger	log				= LoggerFactory.getLogger(Client.class);
-	private static final String	CMD_QUIT		= ":quit";
-	private static final int	RESPONSE_BUFFER	= 1024;
+	private static final String	CMD_QUIT	= ":quit";
 
 	private final String		url;
 	private final int			port;
 	private final String		username;
 	private final String		botname;
+	private MessageService		messageService;
 
 	public Client(final String url, final int port, final String username, final String botname)
 	{
@@ -31,32 +28,7 @@ public class Client implements MessageService
 		this.port = port;
 		this.username = username;
 		this.botname = botname;
-	}
-
-	@Override
-	public void sendMessage(final Socket socket, final String username, final String botname, final String message) throws IOException
-	{
-		final Message msg = new Message(username, botname, message);
-		final byte[] bytes = msg.toCSFormat();
-		socket.getOutputStream().write(bytes);
-		log.debug("Message sent: {} => [{}].", msg, bytes);
-	}
-
-	@Override
-	public String receiveMessage(final Socket socket) throws IOException
-	{
-		int length;
-		final byte[] buffer = new byte[RESPONSE_BUFFER];
-		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		final InputStream is = socket.getInputStream();
-		String response;
-
-		while ((length = is.read(buffer)) != -1)
-			baos.write(buffer, 0, length);
-
-		response = baos.toString(StandardCharsets.UTF_8.name());
-		log.debug("Response received: [{}].", response);
-		return (response);
+		this.messageService = new MessageDelivery();
 	}
 
 	public void start()
@@ -66,7 +38,7 @@ public class Client implements MessageService
 			log.info("Starting ChatScript client.");
 			log.info("Client configuration: server={}:{} | username={} | botname={}", this.url, this.port, this.username, this.botname);
 			System.out.println("Welcome to the ChatScript Java client. Type ':quit' to exit the chat.");
-			this.initializeNewConversation();
+			this.startConversation();
 			this.chatLoop();
 		}
 		catch (final ChatscriptException e)
@@ -76,12 +48,13 @@ public class Client implements MessageService
 		this.quit();
 	}
 
-	private void initializeNewConversation() throws ChatscriptException
+	private void startConversation() throws ChatscriptException
 	{
 		try (Socket socket = new Socket(this.url, this.port))
 		{
 			log.debug("Starting new conversation.");
-			this.sendMessage(socket, this.username, this.botname, "");
+			ChatscriptMessage msg = new Message(this.username, this.botname, "");
+			this.messageService.sendMessage(socket, msg);
 		}
 		catch (final IOException e)
 		{
@@ -137,8 +110,9 @@ public class Client implements MessageService
 
 		try (Socket socket = new Socket(this.url, this.port))
 		{
-			this.sendMessage(socket, this.username, this.botname, message);
-			response = this.receiveMessage(socket);
+			ChatscriptMessage msg = new Message(this.username, this.botname, message);
+			this.messageService.sendMessage(socket, msg);
+			response = this.messageService.receiveMessage(socket);
 		}
 		catch (final IOException e)
 		{
