@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.brtrndb.chatscript.client.impl;
 
 import java.io.ByteArrayOutputStream;
@@ -8,19 +5,10 @@ import java.nio.charset.StandardCharsets;
 
 import com.brtrndb.chatscript.client.core.CSMessage;
 
-/**
- * ChatScript message and metadata.
- *
- * @author bertrand
- *
- */
 public class Message implements CSMessage
 {
-	/** Message author. */
 	private final String	username;
-	/** Message recipient. */
 	private final String	botname;
-	/** Message body. */
 	private final String	body;
 
 	public Message(final String username, final String botname, final String body)
@@ -45,10 +33,6 @@ public class Message implements CSMessage
 		return this.body;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.brtrndb.chatscript.client.CSMessage#toCSFormat()
-	 */
 	@Override
 	public byte[] toCSFormat()
 	{
@@ -68,10 +52,6 @@ public class Message implements CSMessage
 		baos.write(0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString()
 	{

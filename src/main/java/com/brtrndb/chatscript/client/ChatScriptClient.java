@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.brtrndb.chatscript.client;
 
 import org.slf4j.Logger;
@@ -8,21 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import com.brtrndb.chatscript.client.impl.Client;
 
-/**
- * @author bertrand
- *
- */
 public class ChatScriptClient
 {
-	/** Logger for {@link ChatScriptClient}. */
 	private static final Logger log = LoggerFactory.getLogger(ChatScriptClient.class);
 
-	/**
-	 * Main.
-	 *
-	 * @param args
-	 *            Program arguments.
-	 */
 	public static void main(final String[] args)
 	{
 		try
@@ -37,12 +23,6 @@ public class ChatScriptClient
 		}
 	}
 
-	/**
-	 * Verify correct number of parameters.
-	 *
-	 * @param args
-	 *            Program arguments.
-	 */
 	private static void verifyParams(final String[] args)
 	{
 		if (args.length < 2)
@@ -52,15 +32,6 @@ public class ChatScriptClient
 		}
 	}
 
-	/**
-	 * Build client from parameters.
-	 *
-	 * @param url
-	 *            ChatScript server url.
-	 * @param portStr
-	 *            ChatScript server port.
-	 * @return The ChatScript client.
-	 */
 	private static Client createClient(final String[] args)
 	{
 		final String url = args[0];

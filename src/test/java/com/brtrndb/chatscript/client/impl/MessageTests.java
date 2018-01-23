@@ -1,16 +1,9 @@
-/**
- *
- */
 package com.brtrndb.chatscript.client.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.testng.annotations.Test;
 
-/**
- * @author bertrand
- *
- */
 public class MessageTests
 {
 	@Test
