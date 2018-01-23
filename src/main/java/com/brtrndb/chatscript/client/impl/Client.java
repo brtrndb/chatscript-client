@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import com.brtrndb.chatscript.client.core.ChatscriptCommand;
+import com.brtrndb.chatscript.client.core.ChatscriptCommandResult;
 import com.brtrndb.chatscript.client.core.ChatscriptException;
 import com.brtrndb.chatscript.client.core.ChatscriptMessage;
 import com.brtrndb.chatscript.client.core.MessageService;
@@ -14,13 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Client
 {
-	private static final String	CMD_QUIT	= ":quit";
-
-	private final String		url;
-	private final int			port;
-	private final String		username;
-	private final String		botname;
-	private MessageService		messageService;
+	private final String			url;
+	private final int				port;
+	private final String			username;
+	private final String			botname;
+	private final MessageService	messageService;
 
 	public Client(final String url, final int port, final String username, final String botname)
 	{
@@ -64,32 +64,24 @@ public class Client
 
 	private void chatLoop() throws ChatscriptException
 	{
-		boolean continueChatting = true;
-		String message = "";
-		String response = "";
+		ChatscriptCommandResult cmdResult = ChatscriptCommandResult.CONTINUE;
+		String input = "";
 
 		log.debug("Starting main conversation loop.");
 
 		try (InputStreamReader isr = new InputStreamReader(System.in); BufferedReader br = new BufferedReader(isr))
 		{
-			while (continueChatting)
+			while (cmdResult == ChatscriptCommandResult.CONTINUE)
 				try
 				{
 					this.userPrompt();
-					message = br.readLine();
-					if (CMD_QUIT.equals(message))
-						continueChatting = false;
-					else if (!message.isEmpty()) // As empty message means new conversation, empty message are ignored.
-					{
-						response = this.sendAndReceive(message);
-						this.botPrompt(response);
-					}
+					input = br.readLine().trim();
+					cmdResult = this.processInput(input);
 				}
 				catch (final ChatscriptException e)
 				{
 					log.error("ChatScript error.", e);
-					response = e.getLocalizedMessage();
-					this.botPrompt(response);
+					this.botPrompt(e.getLocalizedMessage());
 				}
 		}
 		catch (final IOException e)
@@ -100,8 +92,27 @@ public class Client
 
 	private void userPrompt()
 	{
-		log.debug("Waiting for user input.");
 		System.out.print(this.username + " : ");
+	}
+
+	private ChatscriptCommandResult processInput(String input) throws ChatscriptException
+	{
+		ChatscriptCommandResult result = ChatscriptCommandResult.CONTINUE;
+
+		if (input.charAt(0) == ':')
+		{
+			String[] cmdLine = input.split(" ");
+			ChatscriptCommand cmd = ChatscriptCommand.fromString(cmdLine[0]);
+			result = cmd.getAction().apply(cmdLine);
+		}
+
+		if (result == ChatscriptCommandResult.CONTINUE && !input.isEmpty())
+		{
+			String response = this.sendAndReceive(input);
+			this.botPrompt(response);
+		}
+
+		return (result);
 	}
 
 	private String sendAndReceive(final String message) throws ChatscriptException
@@ -130,5 +141,6 @@ public class Client
 	private void quit()
 	{
 		log.info("Exiting chat.");
+		System.out.println("Good bye !");
 	}
 }

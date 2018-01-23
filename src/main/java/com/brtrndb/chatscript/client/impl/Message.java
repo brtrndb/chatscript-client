@@ -34,7 +34,7 @@ public class Message implements ChatscriptMessage
 		this.writeStringAsBytes(baos, this.botname);
 		this.writeStringAsBytes(baos, this.body);
 
-		return baos.toByteArray();
+		return (baos.toByteArray());
 	}
 
 	private void writeStringAsBytes(final ByteArrayOutputStream baos, final String str)
