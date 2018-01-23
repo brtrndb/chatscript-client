@@ -5,10 +5,17 @@ import java.nio.charset.StandardCharsets;
 
 import com.brtrndb.chatscript.client.core.ChatscriptMessage;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@ToString
 public class Message implements ChatscriptMessage
 {
+	@Getter
 	private final String	username;
+	@Getter
 	private final String	botname;
+	@Getter
 	private final String	body;
 
 	public Message(final String username, final String botname, final String body)
@@ -16,21 +23,6 @@ public class Message implements ChatscriptMessage
 		this.username = username;
 		this.botname = botname;
 		this.body = body;
-	}
-
-	public String getUsername()
-	{
-		return this.username;
-	}
-
-	public String getBotname()
-	{
-		return this.botname;
-	}
-
-	public String getBody()
-	{
-		return this.body;
 	}
 
 	@Override
@@ -50,16 +42,5 @@ public class Message implements ChatscriptMessage
 		final byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
 		baos.write(bytes, 0, bytes.length);
 		baos.write(0);
-	}
-
-	@Override
-	public String toString()
-	{
-		final StringBuilder builder = new StringBuilder();
-		builder.append("Message [")
-				.append("username=").append(this.username).append(", ")
-				.append("botname=").append(this.botname).append(", ")
-				.append("body=").append(this.body).append(']');
-		return (builder.toString());
 	}
 }
