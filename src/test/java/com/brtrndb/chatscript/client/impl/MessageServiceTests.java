@@ -10,20 +10,20 @@ import java.net.UnknownHostException;
 
 import org.testng.annotations.Test;
 
-import com.brtrndb.chatscript.client.core.ChatscriptMessage;
-import com.brtrndb.chatscript.client.core.MessageService;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessage;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessageService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MessageDeliveryTest
+public class MessageServiceTests
 {
 	private static final String	URL			= "localhost";
 	private static final int	PORT		= 12123;
 	private static final String	MESSAGE		= "Msg";
 	private static final String	RESPONSE	= "Ok";
 
-	private MessageService		service		= new MessageDelivery();
+	private ChatscriptMessageService		service		= new MessageService();
 
 	@Test
 	public void sendAndReceiveTest() throws UnknownHostException, IOException
