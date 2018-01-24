@@ -1,9 +1,9 @@
-package com.brtrndb.chatscript.client.impl;
+package com.brtrndb.chatscript.client;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-public class ChatscriptOptions
+public class ChatScriptOptions
 {
 	public static Options helpOptions()
 	{

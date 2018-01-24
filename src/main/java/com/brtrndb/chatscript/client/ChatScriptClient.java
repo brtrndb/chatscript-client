@@ -1,6 +1,6 @@
 package com.brtrndb.chatscript.client;
 
-import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 
 import org.apache.commons.cli.CommandLine;
@@ -10,7 +10,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import com.brtrndb.chatscript.client.impl.ChatscriptOptions;
 import com.brtrndb.chatscript.client.impl.ClientManager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,14 +47,15 @@ public class ChatScriptClient
 
 	private static Entry<Options, CommandLine> verifyCli(final String[] args) throws ParseException
 	{
-		final Options helpOptions = ChatscriptOptions.helpOptions();
-		final Options cliOptions = ChatscriptOptions.cliOptions();
-		final Options allOptions = ChatscriptOptions.merge(helpOptions, cliOptions);
+		final Options helpOptions = ChatScriptOptions.helpOptions();
+		final Options cliOptions = ChatScriptOptions.cliOptions();
+		final Options allOptions = ChatScriptOptions.merge(helpOptions, cliOptions);
 
 		final CommandLineParser parser = new DefaultParser();
 		final CommandLine cli = parser.parse(allOptions, args, true);
 
-		return (new AbstractMap.SimpleEntry<>(allOptions, cli));
+		final SimpleEntry<Options, CommandLine> entry = new SimpleEntry<>(allOptions, cli);
+		return (entry);
 	}
 
 	private static ClientManager createClientManager(final CommandLine cli)
