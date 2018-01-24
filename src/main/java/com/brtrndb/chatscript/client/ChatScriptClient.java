@@ -3,7 +3,7 @@ package com.brtrndb.chatscript.client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.brtrndb.chatscript.client.impl.Client;
+import com.brtrndb.chatscript.client.impl.ClientManager;
 
 public class ChatScriptClient
 {
@@ -14,8 +14,8 @@ public class ChatScriptClient
 		try
 		{
 			verifyParams(args);
-			final Client client = createClient(args);
-			client.start();
+			final ClientManager clientManager = createClientManager(args);
+			clientManager.start();
 		}
 		catch (final Exception e)
 		{
@@ -32,14 +32,14 @@ public class ChatScriptClient
 		}
 	}
 
-	private static Client createClient(final String[] args)
+	private static ClientManager createClientManager(final String[] args)
 	{
 		final String url = args[0];
 		final int port = Integer.parseInt(args[1]);
 		final String username = args.length == 3 ? args[2] : "MacClane";
 		final String botname = args.length == 4 ? args[3] : "harry";
 
-		final Client client = new Client(url, port, username, botname);
-		return (client);
+		final ClientManager clientManager = new ClientManager(url, port, username, botname);
+		return (clientManager);
 	}
 }

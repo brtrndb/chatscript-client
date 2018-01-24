@@ -1,21 +1,21 @@
 package com.brtrndb.chatscript.client.core;
 
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public enum ChatscriptCommand
 {
-	CMD_QUIT(":quit", ChatscriptCommand::cmdQuit);
+	CMD_QUIT(":quit", ChatscriptCommand::cmdQuit), 
+	CMD_RESET(":reset", ChatscriptCommand::cmdReset), 
+	CMD_UNKNOWN("", ChatscriptCommand::cmdUnknown);
 
 	@Getter
-	private String										cmd;
+	private String															cmd;
 	@Getter
-	private Function<String[], ChatscriptCommandResult>	action;
+	private BiFunction<ChatscriptClient, String[], ChatscriptCommandResult>	action;
 
-	private ChatscriptCommand(String cmd, Function<String[], ChatscriptCommandResult> action)
+	private ChatscriptCommand(String cmd, BiFunction<ChatscriptClient, String[], ChatscriptCommandResult> action)
 	{
 		this.cmd = cmd;
 		this.action = action;
@@ -27,11 +27,21 @@ public enum ChatscriptCommand
 			if (command.cmd.equals(str))
 				return (command);
 
-		throw (new IllegalArgumentException("The command does not exists: " + str));
+		return (ChatscriptCommand.CMD_UNKNOWN);
 	}
 
-	private static ChatscriptCommandResult cmdQuit(String[] cmdLine)
+	private static ChatscriptCommandResult cmdQuit(ChatscriptClient client, String[] cmdLine)
 	{
 		return (ChatscriptCommandResult.QUIT);
+	}
+
+	private static ChatscriptCommandResult cmdReset(ChatscriptClient client, String[] cmdLine)
+	{
+		return (ChatscriptCommandResult.CONTINUE);
+	}
+
+	private static ChatscriptCommandResult cmdUnknown(ChatscriptClient client, String[] cmdLine)
+	{
+		return (ChatscriptCommandResult.IGNORE);
 	}
 }
