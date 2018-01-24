@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 import com.brtrndb.chatscript.client.core.ChatscriptClient;
-import com.brtrndb.chatscript.client.core.ChatscriptCommand;
-import com.brtrndb.chatscript.client.core.ChatscriptCommandResult;
 import com.brtrndb.chatscript.client.core.ChatscriptException;
-import com.brtrndb.chatscript.client.core.ChatscriptMessage;
+import com.brtrndb.chatscript.client.core.command.ChatscriptCommand;
+import com.brtrndb.chatscript.client.core.command.ChatscriptCommandResult;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessage;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.brtrndb.chatscript.client.core;
+package com.brtrndb.chatscript.client.core.message;
 
 import java.io.IOException;
 import java.net.Socket;

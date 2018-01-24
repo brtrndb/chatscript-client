@@ -1,4 +1,9 @@
-package com.brtrndb.chatscript.client.core;
+package com.brtrndb.chatscript.client.core.command;
+
+import com.brtrndb.chatscript.client.core.action.ChatscriptAction;
+import com.brtrndb.chatscript.client.core.action.ChatscriptActionQuit;
+import com.brtrndb.chatscript.client.core.action.ChatscriptActionReset;
+import com.brtrndb.chatscript.client.core.action.ChatscriptActionUnknown;
 
 import lombok.Getter;
 

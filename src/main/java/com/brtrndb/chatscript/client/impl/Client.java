@@ -5,8 +5,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.brtrndb.chatscript.client.core.ChatscriptClient;
-import com.brtrndb.chatscript.client.core.ChatscriptMessage;
-import com.brtrndb.chatscript.client.core.ChatscriptMessageService;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessage;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessageService;
 
 import lombok.Getter;
 

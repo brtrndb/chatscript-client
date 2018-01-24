@@ -1,4 +1,4 @@
-package com.brtrndb.chatscript.client.core;
+package com.brtrndb.chatscript.client.core.command;
 
 public enum ChatscriptCommandResult
 {

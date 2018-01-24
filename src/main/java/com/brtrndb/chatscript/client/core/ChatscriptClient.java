@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessage;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessageService;
+
 public interface ChatscriptClient
 {
 	public String getUsername();

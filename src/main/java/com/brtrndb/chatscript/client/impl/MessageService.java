@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
-import com.brtrndb.chatscript.client.core.ChatscriptMessage;
-import com.brtrndb.chatscript.client.core.ChatscriptMessageService;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessage;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessageService;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -3,7 +3,7 @@ package com.brtrndb.chatscript.client.impl;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 
-import com.brtrndb.chatscript.client.core.ChatscriptMessage;
+import com.brtrndb.chatscript.client.core.message.ChatscriptMessage;
 
 import lombok.Getter;
 import lombok.ToString;
