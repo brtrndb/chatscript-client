@@ -14,12 +14,15 @@ The project is mavenized, so build it with `mvn clean package`.
 
 ### Usage
 
-`java -jar chatscript-client-0.0.1-jar-with-dependencies.jar <url> <port> <username> <botname>`
+`java -jar chatscript-client-0.0.1-jar-with-dependencies.jar`
 
-List of parameters:
-- url: ChatScript server address (required).
-- port: ChatScript server port (required, ChatScript default port 1024).
-- username: Client username (optional, default MacClane).
-- botname: Server botname (optional, default harry).
+```
+usage: ChatScriptClient [-b <botname>] [-h] [-n <name>] [-p <port>] [-u <url>]
+ -b,--bot <botname>   Botname
+ -h,--help            Display help usage
+ -n,--name <name>     Username
+ -p,--port <port>     Server port
+ -u,--url <url>       Server url
+```
 
 Note: A ChatScript server must be running in order to test the client.
