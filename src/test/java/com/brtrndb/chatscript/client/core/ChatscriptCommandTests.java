@@ -4,24 +4,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.testng.annotations.Test;
 
-import com.brtrndb.chatscript.client.impl.Client;
+import com.brtrndb.chatscript.client.core.command.ChatscriptCommand;
 
 public class ChatscriptCommandTests
 {
-	private ChatscriptClient client = new Client("localhost", 1024, "testname", "testbot");
-
 	@Test
-	public void getExistingCommandFromStringTest()
+	public void getQuitCommandFromStringTest()
 	{
 		ChatscriptCommand cmd = ChatscriptCommand.fromString(":quit");
 		assertThat(cmd).isEqualTo(ChatscriptCommand.CMD_QUIT);
 	}
 
 	@Test
-	public void getResultForCmdQuit()
+	public void getResetCommandFromStringTest()
 	{
-		String[] cmdQuit = ":quit".split(" ");
-		ChatscriptCommandResult result = ChatscriptCommand.CMD_QUIT.getAction().apply(this.client, cmdQuit);
-		assertThat(result).isEqualTo(ChatscriptCommandResult.QUIT);
+		ChatscriptCommand cmd = ChatscriptCommand.fromString(":reset");
+		assertThat(cmd).isEqualTo(ChatscriptCommand.CMD_RESET);
+	}
+
+	@Test
+	public void getUnknownCommandFromStringTest()
+	{
+		ChatscriptCommand cmd = ChatscriptCommand.fromString(":unknown");
+		assertThat(cmd).isEqualTo(ChatscriptCommand.CMD_UNKNOWN);
 	}
 }
