@@ -5,22 +5,23 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.brtrndb.chatscript.client.core.ChatscriptClient;
-import com.brtrndb.chatscript.client.core.MessageService;
+import com.brtrndb.chatscript.client.core.ChatscriptMessage;
+import com.brtrndb.chatscript.client.core.ChatscriptMessageService;
 
 import lombok.Getter;
 
 public class Client implements ChatscriptClient
 {
 	@Getter
-	private final String			url;
+	private final String					url;
 	@Getter
-	private final int				port;
+	private final int						port;
 	@Getter
-	private final String			username;
+	private final String					username;
 	@Getter
-	private final String			botname;
+	private final String					botname;
 	@Getter
-	private final MessageService	messageService;
+	private final ChatscriptMessageService	messageService;
 
 	public Client(final String url, final int port, final String username, final String botname)
 	{
@@ -28,12 +29,18 @@ public class Client implements ChatscriptClient
 		this.port = port;
 		this.username = username;
 		this.botname = botname;
-		this.messageService = new MessageDelivery();
+		this.messageService = new MessageService();
 	}
 
 	@Override
 	public Socket getNewSocket() throws UnknownHostException, IOException
 	{
 		return (new Socket(this.url, this.port));
+	}
+
+	@Override
+	public ChatscriptMessage buildMessage(String message)
+	{
+		return (new Message(this.username, this.botname, message));
 	}
 }

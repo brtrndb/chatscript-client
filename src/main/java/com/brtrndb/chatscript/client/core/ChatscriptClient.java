@@ -14,7 +14,27 @@ public interface ChatscriptClient
 
 	public int getPort();
 
-	public MessageService getMessageService();
+	public ChatscriptMessageService getMessageService();
 
 	public Socket getNewSocket() throws UnknownHostException, IOException;
+
+	public ChatscriptMessage buildMessage(String message);
+
+	public default String sendAndReceive(String message) throws ChatscriptException
+	{
+		String response;
+
+		try (Socket socket = this.getNewSocket())
+		{
+			ChatscriptMessage msg = this.buildMessage(message);
+			this.getMessageService().sendMessage(socket, msg);
+			response = this.getMessageService().receiveMessage(socket);
+		}
+		catch (final IOException e)
+		{
+			throw (new ChatscriptException("There was a problem with the connection to ChatScript server", e));
+		}
+
+		return (response);
+	}
 }

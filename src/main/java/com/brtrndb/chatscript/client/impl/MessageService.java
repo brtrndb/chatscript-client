@@ -7,14 +7,14 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 import com.brtrndb.chatscript.client.core.ChatscriptMessage;
-import com.brtrndb.chatscript.client.core.MessageService;
+import com.brtrndb.chatscript.client.core.ChatscriptMessageService;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @NoArgsConstructor
-public class MessageDelivery implements MessageService
+public class MessageService implements ChatscriptMessageService
 {
 	private static final int RESPONSE_BUFFER = 1024;
 

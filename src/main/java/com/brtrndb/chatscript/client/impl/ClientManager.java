@@ -39,7 +39,7 @@ public class ClientManager
 			System.out.println("An unexpected error occurs: " + e.getLocalizedMessage());
 		}
 
-		this.quit();
+		this.stop();
 	}
 
 	private void startConversation() throws ChatscriptException
@@ -47,7 +47,7 @@ public class ClientManager
 		try (Socket socket = this.client.getNewSocket())
 		{
 			log.debug("Starting new conversation.");
-			ChatscriptMessage msg = new Message(this.client.getUsername(), this.client.getBotname(), "");
+			ChatscriptMessage msg = this.client.buildMessage("");
 			this.client.getMessageService().sendMessage(socket, msg);
 		}
 		catch (final IOException e)
@@ -70,7 +70,8 @@ public class ClientManager
 				{
 					this.userPrompt();
 					input = br.readLine().trim();
-					cmdResult = this.processInput(input);
+					if (!input.isEmpty())
+						cmdResult = this.processInput(input);
 				}
 				catch (final ChatscriptException e)
 				{
@@ -84,11 +85,6 @@ public class ClientManager
 		}
 	}
 
-	private void userPrompt()
-	{
-		System.out.print(this.client.getUsername() + " : ");
-	}
-
 	private ChatscriptCommandResult processInput(String input) throws ChatscriptException
 	{
 		ChatscriptCommandResult result = ChatscriptCommandResult.CONTINUE;
@@ -97,34 +93,20 @@ public class ClientManager
 		{
 			String[] cmdLine = input.split(" ");
 			ChatscriptCommand cmd = ChatscriptCommand.fromString(cmdLine[0]);
-			result = cmd.getAction().apply(this.client, cmdLine);
+			result = cmd.getAction().doAction(this.client, cmdLine);
 		}
-
-		if (result == ChatscriptCommandResult.CONTINUE && !input.isEmpty())
+		else
 		{
-			String response = this.sendAndReceive(input);
+			String response = this.client.sendAndReceive(input);
 			this.botPrompt(response);
 		}
 
 		return (result);
 	}
 
-	private String sendAndReceive(final String message) throws ChatscriptException
+	private void userPrompt()
 	{
-		String response;
-
-		try (Socket socket = this.client.getNewSocket())
-		{
-			ChatscriptMessage msg = new Message(this.client.getUsername(), this.client.getBotname(), message);
-			this.client.getMessageService().sendMessage(socket, msg);
-			response = this.client.getMessageService().receiveMessage(socket);
-		}
-		catch (final IOException e)
-		{
-			throw (new ChatscriptException("Cannot connect to ChatScript server", e));
-		}
-
-		return (response);
+		System.out.print(this.client.getUsername() + " : ");
 	}
 
 	private void botPrompt(final String response)
@@ -132,7 +114,7 @@ public class ClientManager
 		System.out.println(this.client.getBotname() + " : " + response);
 	}
 
-	private void quit()
+	private void stop()
 	{
 		log.info("Exiting chat.");
 		System.out.println("Good bye !");

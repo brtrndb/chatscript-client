@@ -1,21 +1,19 @@
 package com.brtrndb.chatscript.client.core;
 
-import java.util.function.BiFunction;
-
 import lombok.Getter;
 
 public enum ChatscriptCommand
 {
-	CMD_QUIT(":quit", ChatscriptCommand::cmdQuit), 
-	CMD_RESET(":reset", ChatscriptCommand::cmdReset), 
-	CMD_UNKNOWN("", ChatscriptCommand::cmdUnknown);
+	CMD_QUIT(":quit", new ChatscriptActionQuit()),
+	CMD_RESET(":reset", new ChatscriptActionReset()), 
+	CMD_UNKNOWN("", new ChatscriptActionUnknown());
 
 	@Getter
-	private String															cmd;
+	private String				cmd;
 	@Getter
-	private BiFunction<ChatscriptClient, String[], ChatscriptCommandResult>	action;
+	private ChatscriptAction	action;
 
-	private ChatscriptCommand(String cmd, BiFunction<ChatscriptClient, String[], ChatscriptCommandResult> action)
+	private ChatscriptCommand(String cmd, ChatscriptAction action)
 	{
 		this.cmd = cmd;
 		this.action = action;
@@ -28,20 +26,5 @@ public enum ChatscriptCommand
 				return (command);
 
 		return (ChatscriptCommand.CMD_UNKNOWN);
-	}
-
-	private static ChatscriptCommandResult cmdQuit(ChatscriptClient client, String[] cmdLine)
-	{
-		return (ChatscriptCommandResult.QUIT);
-	}
-
-	private static ChatscriptCommandResult cmdReset(ChatscriptClient client, String[] cmdLine)
-	{
-		return (ChatscriptCommandResult.CONTINUE);
-	}
-
-	private static ChatscriptCommandResult cmdUnknown(ChatscriptClient client, String[] cmdLine)
-	{
-		return (ChatscriptCommandResult.IGNORE);
 	}
 }
