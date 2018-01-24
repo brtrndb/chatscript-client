@@ -19,7 +19,7 @@ public class MessageService implements ChatscriptMessageService
 	private static final int RESPONSE_BUFFER = 1024;
 
 	@Override
-	public void sendMessage(final Socket socket, ChatscriptMessage message) throws IOException
+	public void sendMessage(final Socket socket, final ChatscriptMessage message) throws IOException
 	{
 		final byte[] bytes = message.toCSFormat();
 		socket.getOutputStream().write(bytes);

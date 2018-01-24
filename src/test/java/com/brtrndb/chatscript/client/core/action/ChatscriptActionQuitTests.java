@@ -19,8 +19,8 @@ public class ChatscriptActionQuitTests extends ChatscriptActionTests
 	@Test
 	public void getResultForActionQuit() throws ChatscriptException
 	{
-		ChatscriptAction action = new ChatscriptActionQuit();
-		ChatscriptCommandResult result = action.doAction(this.getClient(), this.getCmdLine());
+		final ChatscriptAction action = new ChatscriptActionQuit();
+		final ChatscriptCommandResult result = action.doAction(this.getClient(), this.getCmdLine());
 		assertThat(result).isEqualTo(ChatscriptCommandResult.QUIT);
 	}
 }

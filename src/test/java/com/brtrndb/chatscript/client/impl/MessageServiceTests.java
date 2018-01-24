@@ -18,17 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MessageServiceTests
 {
-	private static final String	URL			= "localhost";
-	private static final int	PORT		= 12123;
-	private static final String	MESSAGE		= "Msg";
-	private static final String	RESPONSE	= "Ok";
+	private static final String				URL			= "localhost";
+	private static final int				PORT		= 12123;
+	private static final String				MESSAGE		= "Msg";
+	private static final String				RESPONSE	= "Ok";
 
-	private ChatscriptMessageService		service		= new MessageService();
+	private final ChatscriptMessageService	service		= new MessageService();
 
 	@Test
 	public void sendAndReceiveTest() throws UnknownHostException, IOException
 	{
-		Thread r = new Thread(this::simulateClient);
+		final Thread r = new Thread(this::simulateClient);
 
 		try (ServerSocket serverSocket = new ServerSocket(PORT))
 		{
@@ -36,7 +36,7 @@ public class MessageServiceTests
 
 			try (Socket socket = serverSocket.accept())
 			{
-				byte[] expected = { 'U', 's', 'e', 'r', 0, 'B', 'o', 't', 0, 'M', 's', 'g', 0 };
+				final byte[] expected = { 'U', 's', 'e', 'r', 0, 'B', 'o', 't', 0, 'M', 's', 'g', 0 };
 				final byte[] buffer = new byte[expected.length];
 				final InputStream is = socket.getInputStream();
 				is.read(buffer, 0, expected.length);
@@ -54,9 +54,9 @@ public class MessageServiceTests
 			Thread.sleep(1000);
 			try (Socket socket = new Socket(URL, PORT))
 			{
-				ChatscriptMessage msg = new Message("User", "Bot", MESSAGE);
+				final ChatscriptMessage msg = new Message("User", "Bot", MESSAGE);
 				this.service.sendMessage(socket, msg);
-				String res = this.service.receiveMessage(socket);
+				final String res = this.service.receiveMessage(socket);
 				assertThat(res).isEqualTo(RESPONSE);
 			}
 		}

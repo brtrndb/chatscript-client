@@ -10,7 +10,7 @@ import lombok.Getter;
 public enum ChatscriptCommand
 {
 	CMD_QUIT(":quit", new ChatscriptActionQuit()),
-	CMD_RESET(":reset", new ChatscriptActionReset()), 
+	CMD_RESET(":reset", new ChatscriptActionReset()),
 	CMD_UNKNOWN("", new ChatscriptActionUnknown());
 
 	@Getter
@@ -18,15 +18,15 @@ public enum ChatscriptCommand
 	@Getter
 	private ChatscriptAction	action;
 
-	private ChatscriptCommand(String cmd, ChatscriptAction action)
+	private ChatscriptCommand(final String cmd, final ChatscriptAction action)
 	{
 		this.cmd = cmd;
 		this.action = action;
 	}
 
-	public static ChatscriptCommand fromString(String str)
+	public static ChatscriptCommand fromString(final String str)
 	{
-		for (ChatscriptCommand command : ChatscriptCommand.values())
+		for (final ChatscriptCommand command : ChatscriptCommand.values())
 			if (command.cmd.equals(str))
 				return (command);
 

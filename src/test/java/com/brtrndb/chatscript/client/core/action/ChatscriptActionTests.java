@@ -8,11 +8,11 @@ import lombok.Getter;
 public abstract class ChatscriptActionTests
 {
 	@Getter
-	private ChatscriptClient	client	= new Client("localhost", 1024, "testname", "testbot");
+	private final ChatscriptClient	client	= new Client("localhost", 1024, "testname", "testbot");
 	@Getter
-	private String[]			cmdLine;
+	private final String[]			cmdLine;
 
-	public ChatscriptActionTests(String command)
+	public ChatscriptActionTests(final String command)
 	{
 		this.cmdLine = command.split(" ");
 	}

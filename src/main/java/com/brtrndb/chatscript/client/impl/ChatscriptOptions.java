@@ -63,12 +63,12 @@ public class ChatscriptOptions
 		return (options);
 	}
 
-	public static Options merge(Options... options)
+	public static Options merge(final Options... options)
 	{
-		Options allOptions = new Options();
+		final Options allOptions = new Options();
 
-		for (Options opts : options)
-			for (Option opt : opts.getOptions())
+		for (final Options opts : options)
+			for (final Option opt : opts.getOptions())
 				allOptions.addOption(opt);
 
 		return (allOptions);

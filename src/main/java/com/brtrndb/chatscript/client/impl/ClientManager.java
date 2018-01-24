@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ClientManager
 {
-	private ChatscriptClient client;
+	private final ChatscriptClient client;
 
 	public ClientManager(final String url, final int port, final String username, final String botname)
 	{
@@ -47,7 +47,7 @@ public class ClientManager
 		try (Socket socket = this.client.getNewSocket())
 		{
 			log.debug("Starting new conversation.");
-			ChatscriptMessage msg = this.client.buildMessage("");
+			final ChatscriptMessage msg = this.client.buildMessage("");
 			this.client.getMessageService().sendMessage(socket, msg);
 		}
 		catch (final IOException e)
@@ -85,19 +85,19 @@ public class ClientManager
 		}
 	}
 
-	private ChatscriptCommandResult processInput(String input) throws ChatscriptException
+	private ChatscriptCommandResult processInput(final String input) throws ChatscriptException
 	{
 		ChatscriptCommandResult result = ChatscriptCommandResult.CONTINUE;
 
 		if (input.charAt(0) == ':')
 		{
-			String[] cmdLine = input.split(" ");
-			ChatscriptCommand cmd = ChatscriptCommand.fromString(cmdLine[0]);
+			final String[] cmdLine = input.split(" ");
+			final ChatscriptCommand cmd = ChatscriptCommand.fromString(cmdLine[0]);
 			result = cmd.getAction().doAction(this.client, cmdLine);
 		}
 		else
 		{
-			String response = this.client.sendAndReceive(input);
+			final String response = this.client.sendAndReceive(input);
 			this.botPrompt(response);
 		}
 

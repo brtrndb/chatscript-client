@@ -14,7 +14,7 @@ public class ChatscriptActionUnknown extends ChatscriptAction
 	}
 
 	@Override
-	public ChatscriptCommandResult doAction(ChatscriptClient client, String[] action) throws ChatscriptException
+	public ChatscriptCommandResult doAction(final ChatscriptClient client, final String[] action) throws ChatscriptException
 	{
 		log.debug("Unknown command.");
 		return (ChatscriptCommandResult.CONTINUE);

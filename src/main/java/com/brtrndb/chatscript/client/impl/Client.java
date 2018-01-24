@@ -39,7 +39,7 @@ public class Client implements ChatscriptClient
 	}
 
 	@Override
-	public ChatscriptMessage buildMessage(String message)
+	public ChatscriptMessage buildMessage(final String message)
 	{
 		return (new Message(this.username, this.botname, message));
 	}

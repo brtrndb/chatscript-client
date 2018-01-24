@@ -18,13 +18,13 @@ public class ChatscriptActionReset extends ChatscriptAction
 	}
 
 	@Override
-	public ChatscriptCommandResult doAction(ChatscriptClient client, String[] action) throws ChatscriptException
+	public ChatscriptCommandResult doAction(final ChatscriptClient client, final String[] action) throws ChatscriptException
 	{
 		log.debug("Reset command.");
 
 		try (Socket socket = client.getNewSocket())
 		{
-			ChatscriptMessage msg = client.buildMessage("");
+			final ChatscriptMessage msg = client.buildMessage("");
 			client.getMessageService().sendMessage(socket, msg);
 		}
 		catch (final IOException e)

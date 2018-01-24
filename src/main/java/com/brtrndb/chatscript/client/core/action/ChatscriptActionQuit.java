@@ -14,7 +14,7 @@ public class ChatscriptActionQuit extends ChatscriptAction
 	}
 
 	@Override
-	public ChatscriptCommandResult doAction(ChatscriptClient client, String[] action) throws ChatscriptException
+	public ChatscriptCommandResult doAction(final ChatscriptClient client, final String[] action) throws ChatscriptException
 	{
 		log.debug("Exit command.");
 		return (ChatscriptCommandResult.QUIT);

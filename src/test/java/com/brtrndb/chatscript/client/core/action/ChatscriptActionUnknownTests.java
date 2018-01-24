@@ -19,8 +19,8 @@ public class ChatscriptActionUnknownTests extends ChatscriptActionTests
 	@Test
 	public void getResultForActionQuit() throws ChatscriptException
 	{
-		ChatscriptAction action = new ChatscriptActionUnknown();
-		ChatscriptCommandResult result = action.doAction(this.getClient(), this.getCmdLine());
+		final ChatscriptAction action = new ChatscriptActionUnknown();
+		final ChatscriptCommandResult result = action.doAction(this.getClient(), this.getCmdLine());
 		assertThat(result).isEqualTo(ChatscriptCommandResult.CONTINUE);
 	}
 }

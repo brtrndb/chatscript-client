@@ -27,7 +27,7 @@ public class ChatScriptClient
 	{
 		try
 		{
-			Entry<Options, CommandLine> cli = verifyCli(args);
+			final Entry<Options, CommandLine> cli = verifyCli(args);
 
 			if (cli.getValue().hasOption("h"))
 			{
@@ -55,7 +55,7 @@ public class ChatScriptClient
 		final CommandLineParser parser = new DefaultParser();
 		final CommandLine cli = parser.parse(allOptions, args, true);
 
-		return (new AbstractMap.SimpleEntry<Options, CommandLine>(allOptions, cli));
+		return (new AbstractMap.SimpleEntry<>(allOptions, cli));
 	}
 
 	private static ClientManager createClientManager(final CommandLine cli)

@@ -23,13 +23,13 @@ public interface ChatscriptClient
 
 	public ChatscriptMessage buildMessage(String message);
 
-	public default String sendAndReceive(String message) throws ChatscriptException
+	public default String sendAndReceive(final String message) throws ChatscriptException
 	{
 		String response;
 
 		try (Socket socket = this.getNewSocket())
 		{
-			ChatscriptMessage msg = this.buildMessage(message);
+			final ChatscriptMessage msg = this.buildMessage(message);
 			this.getMessageService().sendMessage(socket, msg);
 			response = this.getMessageService().receiveMessage(socket);
 		}
