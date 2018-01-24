@@ -33,7 +33,7 @@ public class Client implements ChatscriptClient
 	}
 
 	@Override
-	public Socket getNewSocket() throws UnknownHostException, IOException
+	public Socket buildSocket() throws UnknownHostException, IOException
 	{
 		return (new Socket(this.url, this.port));
 	}

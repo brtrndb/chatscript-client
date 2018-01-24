@@ -22,7 +22,7 @@ public class ChatscriptActionReset extends ChatscriptAction
 	{
 		log.debug("Reset command.");
 
-		try (Socket socket = client.getNewSocket())
+		try (Socket socket = client.buildSocket())
 		{
 			final ChatscriptMessage msg = client.buildMessage("");
 			client.getMessageService().sendMessage(socket, msg);

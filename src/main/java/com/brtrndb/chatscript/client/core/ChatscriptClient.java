@@ -19,7 +19,7 @@ public interface ChatscriptClient
 
 	public ChatscriptMessageService getMessageService();
 
-	public Socket getNewSocket() throws UnknownHostException, IOException;
+	public Socket buildSocket() throws UnknownHostException, IOException;
 
 	public ChatscriptMessage buildMessage(String message);
 
@@ -27,7 +27,7 @@ public interface ChatscriptClient
 	{
 		String response;
 
-		try (Socket socket = this.getNewSocket())
+		try (Socket socket = this.buildSocket())
 		{
 			final ChatscriptMessage msg = this.buildMessage(message);
 			this.getMessageService().sendMessage(socket, msg);

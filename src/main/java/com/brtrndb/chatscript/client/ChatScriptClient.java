@@ -10,8 +10,6 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import com.brtrndb.chatscript.client.impl.ClientManager;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

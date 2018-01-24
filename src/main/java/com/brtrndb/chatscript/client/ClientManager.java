@@ -1,4 +1,4 @@
-package com.brtrndb.chatscript.client.impl;
+package com.brtrndb.chatscript.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import com.brtrndb.chatscript.client.core.ChatscriptException;
 import com.brtrndb.chatscript.client.core.command.ChatscriptCommand;
 import com.brtrndb.chatscript.client.core.command.ChatscriptCommandResult;
 import com.brtrndb.chatscript.client.core.message.ChatscriptMessage;
+import com.brtrndb.chatscript.client.impl.Client;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +45,7 @@ public class ClientManager
 
 	private void startConversation() throws ChatscriptException
 	{
-		try (Socket socket = this.client.getNewSocket())
+		try (Socket socket = this.client.buildSocket())
 		{
 			log.debug("Starting new conversation.");
 			final ChatscriptMessage msg = this.client.buildMessage("");

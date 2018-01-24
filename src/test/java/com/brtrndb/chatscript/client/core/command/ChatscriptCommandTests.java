@@ -1,4 +1,4 @@
-package com.brtrndb.chatscript.client.core;
+package com.brtrndb.chatscript.client.core.command;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
