@@ -28,7 +28,7 @@ public class ClientTests
 	@Test
 	public void testBuildMessage()
 	{
-		ChatscriptMessage msg = this.client.buildMessage("message");
+		final ChatscriptMessage msg = this.client.buildMessage("message");
 		assertThat(msg.getUsername()).isEqualTo("testname");
 		assertThat(msg.getBotname()).isEqualTo("testbot");
 		assertThat(msg.getBody()).isEqualTo("message");

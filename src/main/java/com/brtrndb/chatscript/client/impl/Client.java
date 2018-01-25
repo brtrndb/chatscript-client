@@ -45,7 +45,7 @@ public class Client implements ChatscriptClient
 	}
 
 	@Override
-	public void userPrompt(String str)
+	public void userPrompt(final String str)
 	{
 		if (str.isEmpty())
 			System.out.print(this.getUsername() + ": ");
@@ -54,13 +54,13 @@ public class Client implements ChatscriptClient
 	}
 
 	@Override
-	public void botPrompt(String str)
+	public void botPrompt(final String str)
 	{
 		System.out.println(this.getBotname() + ": " + str);
 	}
 
 	@Override
-	public void clientPrompt(String str)
+	public void clientPrompt(final String str)
 	{
 		System.out.println("CLIENT: " + str);
 	}

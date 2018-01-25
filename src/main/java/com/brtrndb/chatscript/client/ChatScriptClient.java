@@ -23,20 +23,18 @@ public class ChatScriptClient
 			final Map<Options, CommandLine> cli = verifyCli(args);
 
 			if (cli.get(ChatScriptOptions.OPTIONS_ALL).hasOption("h"))
-			{
 				ChatScriptOptions.printHelp();
-			}
 			else
 			{
 				final ClientManager clientManager = createClientManager(cli.get(ChatScriptOptions.OPTIONS_CLI));
 				clientManager.start();
 			}
 		}
-		catch (ParseException e)
+		catch (final ParseException e)
 		{
 			ChatScriptOptions.printHelp();
 		}
-		catch (ChatscriptException e)
+		catch (final ChatscriptException e)
 		{
 			log.error("Chatscript client error", e);
 			System.out.println("An error occurs: " + e.getLocalizedMessage() + ".");
@@ -73,7 +71,7 @@ public class ChatScriptClient
 			final ClientManager clientManager = new ClientManager(url, port, username, botname);
 			return (clientManager);
 		}
-		catch (NumberFormatException e)
+		catch (final NumberFormatException e)
 		{
 			throw (new ChatscriptException("Port parameter in not a number", e));
 		}

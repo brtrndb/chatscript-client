@@ -9,9 +9,7 @@ import lombok.Getter;
 
 public enum ChatscriptCommand
 {
-	CMD_QUIT(":quit", new ChatscriptActionQuit()),
-	CMD_RESET(":reset", new ChatscriptActionReset()),
-	CMD_UNKNOWN("", new ChatscriptActionUnknown());
+	CMD_QUIT(":quit", new ChatscriptActionQuit()), CMD_RESET(":reset", new ChatscriptActionReset()), CMD_UNKNOWN("", new ChatscriptActionUnknown());
 
 	@Getter
 	private String				cmd;

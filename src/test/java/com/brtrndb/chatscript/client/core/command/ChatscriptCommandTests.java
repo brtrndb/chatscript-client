@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.testng.annotations.Test;
 
-import com.brtrndb.chatscript.client.core.command.ChatscriptCommand;
-
 public class ChatscriptCommandTests
 {
 	@Test
