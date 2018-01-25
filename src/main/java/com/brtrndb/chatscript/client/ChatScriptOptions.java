@@ -1,5 +1,6 @@
 package com.brtrndb.chatscript.client;
 
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
@@ -10,7 +11,11 @@ public class ChatScriptOptions
 	public static final String	DEFAULT_SERVER_URL	= "localhost";
 	public static final String	DEFAULT_SERVER_PORT	= "1024";
 
-	public static Options helpOptions()
+	public static final Options	OPTIONS_HELP		= helpOptions();
+	public static final Options	OPTIONS_CLI			= cliOptions();
+	public static final Options	OPTIONS_ALL			= merge(OPTIONS_HELP, OPTIONS_CLI);
+
+	private static Options helpOptions()
 	{
 		final Options options = new Options();
 
@@ -26,7 +31,7 @@ public class ChatScriptOptions
 		return (options);
 	}
 
-	public static Options cliOptions()
+	private static Options cliOptions()
 	{
 		final Options options = new Options();
 
@@ -77,7 +82,7 @@ public class ChatScriptOptions
 		return (options);
 	}
 
-	public static Options merge(final Options... options)
+	private static Options merge(final Options... options)
 	{
 		final Options allOptions = new Options();
 
@@ -86,5 +91,11 @@ public class ChatScriptOptions
 				allOptions.addOption(opt);
 
 		return (allOptions);
+	}
+
+	public static void printHelp()
+	{
+		final HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp(ChatScriptClient.class.getSimpleName(), ChatScriptOptions.OPTIONS_ALL, true);
 	}
 }

@@ -1,12 +1,11 @@
 package com.brtrndb.chatscript.client;
 
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
@@ -21,18 +20,21 @@ public class ChatScriptClient
 	{
 		try
 		{
-			final Entry<Options, CommandLine> cli = verifyCli(args);
+			final Map<Options, CommandLine> cli = verifyCli(args);
 
-			if (cli.getValue().hasOption("h"))
+			if (cli.get(ChatScriptOptions.OPTIONS_ALL).hasOption("h"))
 			{
-				final HelpFormatter formatter = new HelpFormatter();
-				formatter.printHelp(ChatScriptClient.class.getSimpleName(), cli.getKey(), true);
+				ChatScriptOptions.printHelp();
 			}
 			else
 			{
-				final ClientManager clientManager = createClientManager(cli.getValue());
+				final ClientManager clientManager = createClientManager(cli.get(ChatScriptOptions.OPTIONS_CLI));
 				clientManager.start();
 			}
+		}
+		catch (ParseException e)
+		{
+			ChatScriptOptions.printHelp();
 		}
 		catch (ChatscriptException e)
 		{
@@ -46,24 +48,17 @@ public class ChatScriptClient
 		}
 	}
 
-	private static Entry<Options, CommandLine> verifyCli(final String[] args) throws ChatscriptException
+	private static Map<Options, CommandLine> verifyCli(final String[] args) throws ParseException
 	{
-		try
-		{
-			final Options helpOptions = ChatScriptOptions.helpOptions();
-			final Options cliOptions = ChatScriptOptions.cliOptions();
-			final Options allOptions = ChatScriptOptions.merge(helpOptions, cliOptions);
+		final CommandLineParser parser = new DefaultParser();
+		final CommandLine cliHelp = parser.parse(ChatScriptOptions.OPTIONS_ALL, args, true);
+		final CommandLine cli = parser.parse(ChatScriptOptions.OPTIONS_CLI, args);
+		final Map<Options, CommandLine> map = new HashMap<>();
 
-			final CommandLineParser parser = new DefaultParser();
-			final CommandLine cli = parser.parse(allOptions, args, true);
+		map.put(ChatScriptOptions.OPTIONS_ALL, cliHelp);
+		map.put(ChatScriptOptions.OPTIONS_CLI, cli);
 
-			final SimpleEntry<Options, CommandLine> entry = new SimpleEntry<>(allOptions, cli);
-			return (entry);
-		}
-		catch (ParseException e)
-		{
-			throw (new ChatscriptException("Could not parse command line", e));
-		}
+		return (map);
 	}
 
 	private static ClientManager createClientManager(final CommandLine cli) throws ChatscriptException
