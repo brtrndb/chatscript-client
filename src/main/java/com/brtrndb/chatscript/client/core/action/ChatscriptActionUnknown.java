@@ -17,6 +17,7 @@ public class ChatscriptActionUnknown extends ChatscriptAction
 	public ChatscriptCommandResult doAction(final ChatscriptClient client, final String[] action) throws ChatscriptException
 	{
 		log.debug("Unknown command.");
+		client.clientPrompt("The command '" + action[0] + "' is unknown.");
 		return (ChatscriptCommandResult.CONTINUE);
 	}
 }

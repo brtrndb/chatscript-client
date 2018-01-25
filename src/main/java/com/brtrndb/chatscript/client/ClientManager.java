@@ -29,7 +29,7 @@ public class ClientManager
 		try
 		{
 			log.info("Starting ChatScript client.");
-			log.info("Client configuration: server={}:{} | username={} | botname={}", this.client.getUrl(), this.client.getPort(), this.client.getUsername(), this.client.getBotname());
+			log.debug("Configuration: server={}:{} | username={} | botname={}", this.client.getUrl(), this.client.getPort(), this.client.getUsername(), this.client.getBotname());
 			System.out.println("Welcome to the ChatScript Java client. Type ':quit' to exit the chat.");
 			this.startConversation();
 			this.chatLoop();
@@ -69,7 +69,7 @@ public class ClientManager
 			while (cmdResult == ChatscriptCommandResult.CONTINUE)
 				try
 				{
-					this.userPrompt();
+					this.client.userPrompt("");
 					input = br.readLine().trim();
 					if (!input.isEmpty())
 						cmdResult = this.processInput(input);
@@ -77,7 +77,7 @@ public class ClientManager
 				catch (final ChatscriptException e)
 				{
 					log.error("ChatScript error.", e);
-					this.botPrompt(e.getLocalizedMessage());
+					this.client.clientPrompt(e.getLocalizedMessage());
 				}
 		}
 		catch (final IOException e)
@@ -99,20 +99,10 @@ public class ClientManager
 		else
 		{
 			final String response = this.client.sendAndReceive(input);
-			this.botPrompt(response);
+			this.client.botPrompt(response);
 		}
 
 		return (result);
-	}
-
-	private void userPrompt()
-	{
-		System.out.print(this.client.getUsername() + " : ");
-	}
-
-	private void botPrompt(final String response)
-	{
-		System.out.println(this.client.getBotname() + " : " + response);
 	}
 
 	private void stop()

@@ -43,4 +43,25 @@ public class Client implements ChatscriptClient
 	{
 		return (new Message(this.username, this.botname, message));
 	}
+
+	@Override
+	public void userPrompt(String str)
+	{
+		if (str.isEmpty())
+			System.out.print(this.getUsername() + ": ");
+		else
+			System.out.println(this.getUsername() + ": " + str);
+	}
+
+	@Override
+	public void botPrompt(String str)
+	{
+		System.out.println(this.getBotname() + ": " + str);
+	}
+
+	@Override
+	public void clientPrompt(String str)
+	{
+		System.out.println("CLIENT: " + str);
+	}
 }

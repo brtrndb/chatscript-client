@@ -26,6 +26,7 @@ public class ChatscriptActionReset extends ChatscriptAction
 		{
 			final ChatscriptMessage msg = client.buildMessage("");
 			client.getMessageService().sendMessage(socket, msg);
+			client.clientPrompt("New conversation starts.");
 		}
 		catch (final IOException e)
 		{

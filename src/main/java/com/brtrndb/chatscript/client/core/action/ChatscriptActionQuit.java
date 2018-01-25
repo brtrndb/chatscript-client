@@ -17,6 +17,7 @@ public class ChatscriptActionQuit extends ChatscriptAction
 	public ChatscriptCommandResult doAction(final ChatscriptClient client, final String[] action) throws ChatscriptException
 	{
 		log.debug("Exit command.");
+		client.clientPrompt("Exiting.");
 		return (ChatscriptCommandResult.QUIT);
 	}
 }

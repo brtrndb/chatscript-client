@@ -40,4 +40,10 @@ public interface ChatscriptClient
 
 		return (response);
 	}
+
+	public void userPrompt(String str);
+
+	public void botPrompt(String str);
+
+	public void clientPrompt(String str);
 }
