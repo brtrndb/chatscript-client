@@ -30,8 +30,15 @@ public interface ChatscriptClient
 		try (Socket socket = this.buildSocket())
 		{
 			final ChatscriptMessage msg = this.buildMessage(message);
-			this.getMessageService().sendMessage(socket, msg);
-			response = this.getMessageService().receiveMessage(socket);
+			try
+			{
+				this.getMessageService().sendMessage(socket, msg);
+				response = this.getMessageService().receiveMessage(socket);
+			}
+			catch (IOException e)
+			{
+				throw (new ChatscriptException("Can't send or receive message", e));
+			}
 		}
 		catch (final IOException e)
 		{

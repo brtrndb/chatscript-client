@@ -8,29 +8,63 @@ import java.net.UnknownHostException;
 
 import org.testng.annotations.Test;
 
+import com.brtrndb.chatscript.client.FakeServer;
 import com.brtrndb.chatscript.client.core.ChatscriptClient;
+import com.brtrndb.chatscript.client.core.ChatscriptException;
 import com.brtrndb.chatscript.client.core.message.ChatscriptMessage;
 
-public class ClientTests
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class ClientTests // extends TestClassWithFakeServer
 {
-	private final ChatscriptClient client = new Client("localhost", 1024, "testname", "testbot");
+	private static final String				URL			= "localhost";
+	private static final int				PORT		= 0;
+	private static final String				USERNAME	= "User";
+	private static final String				BOTNAME		= "Bot";
+
+	private static final String				BODY		= "Msg";
+	private static final ChatscriptMessage	MESSAGE		= new Message(USERNAME, BOTNAME, BODY);
+	private static final String				RESPONSE	= "Ok";
 
 	@Test
 	public void testBuildSocket() throws UnknownHostException, IOException
 	{
-		try (Socket socket = this.client.buildSocket())
+		FakeServer fs = new FakeServer("ClientTests.testBuildSocket", PORT, MESSAGE, RESPONSE);
+		fs.start();
+
+		ChatscriptClient client = new Client(URL, fs.getPort(), USERNAME, BOTNAME);
+
+		try (Socket socket = client.buildSocket())
 		{
-			assertThat(socket.getPort()).isEqualTo(1024);
-			assertThat(socket.getInetAddress().getHostName()).isEqualTo("localhost");
+			assertThat(socket.getPort()).isEqualTo(fs.getPort());
+			assertThat(socket.getInetAddress().getHostName()).isEqualTo(URL);
 		}
+
+		fs.waitForEnding();
 	}
 
 	@Test
 	public void testBuildMessage()
 	{
-		final ChatscriptMessage msg = this.client.buildMessage("message");
-		assertThat(msg.getUsername()).isEqualTo("testname");
-		assertThat(msg.getBotname()).isEqualTo("testbot");
-		assertThat(msg.getBody()).isEqualTo("message");
+		ChatscriptClient client = new Client(URL, PORT, USERNAME, BOTNAME);
+		final ChatscriptMessage msg = client.buildMessage(BODY);
+		assertThat(msg.getUsername()).isEqualTo(USERNAME);
+		assertThat(msg.getBotname()).isEqualTo(BOTNAME);
+		assertThat(msg.getBody()).isEqualTo(BODY);
+	}
+
+	@Test
+	public void testSendAndReceive() throws ChatscriptException
+	{
+		FakeServer fs = new FakeServer("ClientTests.testSendAndReceive", PORT, MESSAGE, RESPONSE);
+		fs.start();
+
+		ChatscriptClient client = new Client(URL, fs.getPort(), USERNAME, BOTNAME);
+
+		String res = client.sendAndReceive(BODY);
+		assertThat(res).isEqualTo(RESPONSE);
+
+		fs.waitForEnding();
 	}
 }
