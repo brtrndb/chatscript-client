@@ -56,15 +56,18 @@ public class FakeServer extends Thread
 			try (Socket socket = serverSocket.accept())
 			{
 				log.debug("New connection from {} on port {}.", socket.getInetAddress(), socket.getPort());
-				final byte[] expected = this.expected.toCSFormat();
-				final byte[] buffer = new byte[expected.length];
-				final InputStream is = socket.getInputStream();
-				is.read(buffer, 0, expected.length);
+				final byte[] expectedBytes = this.expected.toCSFormat();
+				final byte[] buffer = new byte[expectedBytes.length];
 
-				if (Arrays.equals(buffer, expected))
-					socket.getOutputStream().write(response.getBytes());
-				else
-					socket.getOutputStream().write(FAIL.getBytes());
+				try(final InputStream is = socket.getInputStream())
+				{
+					is.read(buffer, 0, expectedBytes.length);
+
+					if (Arrays.equals(buffer, expectedBytes))
+						socket.getOutputStream().write(this.response.getBytes());
+					else
+						socket.getOutputStream().write(FAIL.getBytes());
+				}
 			}
 			catch (IOException e)
 			{

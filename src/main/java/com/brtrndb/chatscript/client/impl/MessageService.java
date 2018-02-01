@@ -32,11 +32,13 @@ public class MessageService implements ChatscriptMessageService
 		int length;
 		final byte[] buffer = new byte[RESPONSE_BUFFER];
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		final InputStream is = socket.getInputStream();
-		String response;
+		final String response;
 
-		while ((length = is.read(buffer)) != -1)
-			baos.write(buffer, 0, length);
+		try (final InputStream is = socket.getInputStream())
+		{
+			while ((length = is.read(buffer)) != -1)
+				baos.write(buffer, 0, length);
+		}
 
 		response = baos.toString(StandardCharsets.UTF_8.name());
 		log.debug("Response received: [{}].", response);
