@@ -69,7 +69,7 @@
 		<!-- Other properties. -->
 		<version.dropwizard>1.2.0</version.dropwizard>
 		<version.slf4j>1.7.25</version.slf4j>
-		<version.log4j>2.8.2</version.log4j>
+		<version.log4j>2.16.0</version.log4j>
 		<version.lombok>1.16.20</version.lombok>
 		<version.cli>1.4</version.cli>
 		<version.testng>6.10</version.testng>
